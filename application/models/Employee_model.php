@@ -37,89 +37,48 @@ return $query->result_array();
 // }
 
 
-public function AdduserDetailsEmployee($data,$data1){
-    $this->db->trans_begin();
-    
-    // echo $data["UserId"];
-   
-        $sp = "sAddUser ?,?,?,?,?,?,?,?,?,?,?"; //No exec or call needed
+public function AdduserDetailsEmployee($data){
+
+
+        $sp = "sAddEmployee ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?"; //No exec or call needed
 
         //     //No @ needed.  Codeigniter gets it right either way
         $params =$data;
-            // $params = array($data);
-            // print_r($params);
-
             $result = $this->db->query($sp,$params);
-            var_dump($this->db->trans_status());
-            if ($result) {
-
-            $sp1 = "sAddEmployee ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?"; //No exec or call needed - count 16
-
-        //     //No @ needed.  Codeigniter gets it right either way
-        $params1 = $data1;
-            // $params = array($data);
-            // print_r($params);
-
-            $result1 = $this->db->query($sp1,$params1);
-            }
-
-
-                if ($this->db->trans_status() === FALSE)
+            $retVal = $result->row_array();
+            var_dump($retVal);
+            foreach($retVal as $key=>$value)
             {
-                $this->db->trans_rollback();
-                return false;
+                $firstprocedursuccess= $value;
             }
-            else
-            {
-                $this->db->trans_commit();
-                return TRUE;
+            return $firstprocedursuccess;
 
-            }
-
-    }
+   }
 
 
 
-    public function AdduserDetailsVendor($data,$data1){
-        $this->db->trans_begin();
-        
+    public function AdduserDetailsVendor($data){
+
+
         // echo $data["UserId"];
-       
-            $sp = "sAddUser ?,?,?,?,?,?,?,?,?,?,?"; //No exec or call needed
-    
+
+            $sp = "sAddVendor ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?"; //No exec or call needed
+
             //     //No @ needed.  Codeigniter gets it right either way
             $params =$data;
                 // $params = array($data);
                 // print_r($params);
-    
+
                 $result = $this->db->query($sp,$params);
-                var_dump($this->db->trans_status());
-                if ($result) {
-    
-                $sp1 = "sAddVendor ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?"; //No exec or call needed
-    
-            //     //No @ needed.  Codeigniter gets it right either way
-            $params1 = $data1;
-                // $params = array($data);
-                // print_r($params);
-    
-                $result1 = $this->db->query($sp1,$params1);
-                }
-    
-    
-                    if ($this->db->trans_status() === FALSE)
+                $retVal = $result->row_array();
+                foreach($retVal as $key=>$value)
                 {
-                    $this->db->trans_rollback();
+                    $firstprocedursuccess= $value;
                 }
-                else
-                {
-                    $this->db->trans_commit();
-                    return TRUE;
-    
-                }
-    
+                return $firstproceduresuccess;
+
         }
 
-       
+
 
 }
